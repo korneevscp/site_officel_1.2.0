@@ -71,50 +71,9 @@ function time_elapsed_string($datetime, $full = false) {
   <meta charset="UTF-8" />
   <title> Accueil - NEXORA </title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
-  <style>
-  /* Styles CSS pour la mise en page et l'apparence */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #111;
-    color: #eee;
-    margin: 0;
-    padding: 2rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  a {
-    color: #66aaff;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  h1 {
-    margin: 0;
-    color: #66aaff;
-  }
-  article {
-    border-bottom: 1px solid #333;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  article h2 {
-    margin: 0 0 0.2rem 0;
-  }
-  article small {
-    color: #999;
-  }
-  .user-links a {
-    margin-left: 1rem;
-  }
-  </style>
+ <!-- Lien vers le fichier CSS -->
+    <link rel="stylesheet" href="../assets/css/index.css">
+
 </head>
 <body>
 
