@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <title>Créer un article - NEXORA </title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
-  <link rel="stylesheet" href="assets/css/create_article.css"/>
+  <link rel="stylesheet" href="../assets/css/create_article.css"/>
 
   <!-- Intègre l'éditeur TinyMCE -->
   <script src="https://cdn.tiny.cloud/1/8evtsb6e56jf07xb5lj1pyiqxqm80vhnih1mdlc0op47kiav/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
