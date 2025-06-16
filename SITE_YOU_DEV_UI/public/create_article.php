@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <title>Créer un article - NEXORA </title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
+  <link rel="stylesheet" href="assets/css/create_article.css"/>
 
   <!-- Intègre l'éditeur TinyMCE -->
   <script src="https://cdn.tiny.cloud/1/8evtsb6e56jf07xb5lj1pyiqxqm80vhnih1mdlc0op47kiav/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
@@ -55,68 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     Text: 'test'
   });
   </script>
-
-  <style>
-    /* Styles CSS pour la page */
-    body {
-    background: #111;
-    color: #eee;
-    font-family: Arial, sans-serif;
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 1rem;
-    }
-    input, textarea {
-    width: 100%;
-    background: #222;
-    border: none;
-    color: #eee;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-    font-size: 1rem;
-    }
-    button {
-    background: #66aaff;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    color: #111;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    }
-    button:hover {
-    background: #5599dd;
-    }
-    .error {
-    color: #f55;
-    margin-bottom: 1rem;
-    }
-    .success {
-    color: #5f5;
-    margin-bottom: 1rem;
-    }
-    label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.3rem;
-    }
-    nav {
-    background: #222;
-    padding: 0.5rem 1rem;
-    margin-bottom: 2rem;
-    border-radius: 6px;
-    }
-    nav a {
-    color: #66aaff;
-    margin-right: 1rem;
-    text-decoration: none;
-    font-weight: bold;
-    }
-    nav a:hover {
-    text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
 
