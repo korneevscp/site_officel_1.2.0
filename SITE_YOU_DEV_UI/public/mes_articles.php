@@ -1,4 +1,4 @@
-/*
+<!-- //
  * Ce fichier affiche la liste des articles de l'utilisateur connecté.
  * 
  * 1. Démarre la session et vérifie si l'utilisateur est connecté.
@@ -14,7 +14,7 @@
  *    - Un bouton "Supprimer" qui envoie l'identifiant de l'article à la page delete_article.php,
  *      avec une confirmation JavaScript avant suppression
  * 5. Utilise un peu de CSS pour styliser les cartes d'articles et les boutons.
- */
+ */ -->
 <?php
 session_start();
 require_once '../includes/db.php';
