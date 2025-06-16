@@ -1,3 +1,20 @@
+/*
+ * Ce fichier affiche la liste des articles de l'utilisateur connecté.
+ * 
+ * 1. Démarre la session et vérifie si l'utilisateur est connecté.
+ *    - Si non, redirige vers la page de connexion.
+ * 2. Récupère l'identifiant de l'utilisateur depuis la session.
+ * 3. Prépare et exécute une requête SQL pour récupérer tous les articles
+ *    écrits par l'utilisateur, triés par date de création décroissante.
+ * 4. Affiche chaque article dans une carte avec :
+ *    - Le titre de l'article (échappé pour éviter les failles XSS)
+ *    - La date de publication formatée
+ *    - Le contenu de l'article
+ *    - Un bouton "Modifier" qui envoie l'identifiant de l'article à la page edit_article.php
+ *    - Un bouton "Supprimer" qui envoie l'identifiant de l'article à la page delete_article.php,
+ *      avec une confirmation JavaScript avant suppression
+ * 5. Utilise un peu de CSS pour styliser les cartes d'articles et les boutons.
+ */
 <?php
 session_start();
 require_once '../includes/db.php';
