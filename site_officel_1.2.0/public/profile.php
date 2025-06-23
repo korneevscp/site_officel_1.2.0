@@ -1,8 +1,7 @@
 <?php
-session_start(); // Démarre la session utilisateur
-require_once '../includes/db.php'; // Inclut la connexion à la base de données
+session_start();
+require_once '../includes/db.php';
 
-// Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -13,7 +12,7 @@ $success = '';
 
 $user_id = $_SESSION['user_id'];
 
-// Récupère les informations de l'utilisateur depuis la base de données
+// Récupérer infos utilisateur (username, email, avatar, description, password_hash)
 $stmt = $pdo->prepare("SELECT username, email, avatar, description, password_hash FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
@@ -22,7 +21,6 @@ if (!$user) {
     die("Utilisateur non trouvé");
 }
 
-// Si le formulaire est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newUsername = trim(isset($_POST['username']) ? $_POST['username'] : '');
     $newEmail = trim(isset($_POST['email']) ? $_POST['email'] : '');
@@ -31,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newPassword = isset($_POST['new_password']) ? $_POST['new_password'] : '';
     $confirmPassword = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
 
-    // Gestion de l'upload de l'avatar
+    // Gestion upload avatar
     if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] !== UPLOAD_ERR_NO_FILE) {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
         if ($_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
@@ -43,13 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $avatarFilename = 'avatar_'.$user_id.'_'.time().'.'.$ext;
             $uploadDir = __DIR__ . '/../uploads/avatars/';
             if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true); // Crée le dossier s'il n'existe pas
+                mkdir($uploadDir, 0755, true);
             }
             $uploadPath = $uploadDir . $avatarFilename;
             if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadPath)) {
                 $error = "Impossible de sauvegarder l'avatar.";
             } else {
-                // Supprime l'ancien avatar si existant
+                // Supprimer ancien avatar si existant (optionnel)
                 if ($user['avatar'] && file_exists($uploadDir . $user['avatar'])) {
                     @unlink($uploadDir . $user['avatar']);
                 }
@@ -58,17 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Vérifie que le pseudo et l'email sont renseignés
     if (!$newUsername || !$newEmail) {
         $error = "Pseudo et email obligatoires.";
     } else {
-        // Vérifie si le pseudo ou l'email sont déjà utilisés par un autre utilisateur
+        // Vérifier si email/pseudo changé et déjà utilisé ?
         $stmt = $pdo->prepare("SELECT id FROM users WHERE (email = ? OR username = ?) AND id != ?");
         $stmt->execute([$newEmail, $newUsername, $user_id]);
         if ($stmt->fetch()) {
             $error = "Pseudo ou email déjà utilisé par un autre utilisateur.";
         } else {
-            // Si l'utilisateur souhaite changer de mot de passe
+            // Changer mot de passe si demandé (uniquement si nouveau mdp est renseigné)
             if ($newPassword || $confirmPassword) {
                 if (!$currentPassword) {
                     $error = "Veuillez saisir votre mot de passe actuel pour le changer.";
@@ -77,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } elseif ($newPassword !== $confirmPassword) {
                     $error = "Le nouveau mot de passe et sa confirmation ne correspondent pas.";
                 } else {
-                    // Met à jour le mot de passe
+                    // Mettre à jour mot de passe
                     $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
                     $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
                     $stmt->execute([$newHash, $user_id]);
@@ -85,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (!$error) {
-                // Met à jour le pseudo, l'email, la description et l'avatar si uploadé
+                // Mettre à jour pseudo + email + description + avatar si uploadé
                 if (isset($avatarFilename)) {
                     $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, description = ?, avatar = ? WHERE id = ?");
                     $stmt->execute([$newUsername, $newEmail, $newDescription, $avatarFilename, $user_id]);
@@ -97,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['username'] = $newUsername;
                 $success = "Profil mis à jour avec succès.";
 
-                // Recharge les informations utilisateur
+                // Recharger les infos
                 $user['username'] = $newUsername;
                 $user['email'] = $newEmail;
                 $user['description'] = $newDescription;
@@ -106,3 +103,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<title>Mon profil</title>
+ <link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
+<style>
+  body { font-family: Arial; background: #111; color: #eee; padding: 2rem; max-width: 600px; margin: auto; }
+  input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; background: #222; border: none; color: #eee; }
+  button { padding: 0.5rem 1rem; background: #444; border: none; color: #eee; cursor: pointer; }
+  .error { color: #f55; }
+  .success { color: #5f5; }
+  label { font-weight: bold; display: block; margin-top: 1rem; }
+  a { color: #66f; }
+  img.avatar-preview { max-width: 150px; max-height: 150px; border-radius: 50%; display: block; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<h1>Mon profil</h1>
+
+<?php if ($error): ?><p class="error"><?= htmlspecialchars($error) ?></p><?php endif; ?>
+<?php if ($success): ?><p class="success"><?= htmlspecialchars($success) ?></p><?php endif; ?>
+
+<form method="POST" enctype="multipart/form-data">
+  <label for="username">Pseudo</label>
+  <input id="username" name="username" type="text" required value="<?= htmlspecialchars($user['username']) ?>" />
+
+  <label for="email">Email</label>
+  <input id="email" name="email" type="email" required value="<?= htmlspecialchars($user['email']) ?>" />
+
+  <label for="description">Description</label>
+  <textarea id="description" name="description" rows="4"><?= htmlspecialchars(isset($user['description']) ? $user['description'] : '') ?></textarea>
+
+  <label for="avatar">Avatar (jpeg, png, gif)</label>
+  <input id="avatar" name="avatar" type="file" accept="image/jpeg,image/png,image/gif" />
+  <?php if ($user['avatar']): ?>
+    <img src="../uploads/avatars/<?= htmlspecialchars($user['avatar']) ?>" alt="Avatar" class="avatar-preview" />
+  <?php endif; ?>
+
+  <hr style="border-color:#333; margin: 2rem 0;">
+
+  <p>Changer le mot de passe (optionnel) :</p>
+
+  <label for="current_password">Mot de passe actuel</label>
+  <input id="current_password" name="current_password" type="password" autocomplete="current-password" />
+
+  <label for="new_password">Nouveau mot de passe</label>
+  <input id="new_password" name="new_password" type="password" autocomplete="new-password" />
+
+  <label for="confirm_password">Confirmer nouveau mot de passe</label>
+  <input id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" />
+
+  <button type="submit">Mettre à jour</button>
+</form>
+
+<p><a href="index.php">← Retour à l'accueil</a> | <a href="logout.php">Se déconnecter</a></p>
+
+</body>
+</html>
