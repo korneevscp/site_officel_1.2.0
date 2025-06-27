@@ -44,20 +44,107 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<title>S'inscrire - NEXORA </title>
+  <meta charset="UTF-8" />
+  <title>S'inscrire - NEXORA</title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
-<style>
-  body { background:#111; color:#eee; font-family: Arial, sans-serif; max-width: 400px; margin:auto; padding: 2rem; }
-  input { width: 100%; padding: 0.5rem; margin: 0.3rem 0; background:#222; border:none; color:#eee; border-radius:3px;}
-  button { background:#66aaff; border:none; color:#111; padding: 0.5rem 1rem; cursor:pointer; border-radius:3px;}
-  .error { color: #f55; }
-  a { color:#66aaff; }
-</style>
+  <style>
+    :root {
+      --background: #1e1e2f;
+      --card-bg: #2c2c47;
+      --text: #f0f0f0;
+      --text-light: #9ca3af;
+      --primary: #8a2be2;
+      --border: #3a3a4a;
+      --avatar-bg: #3f3f57;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    .signup-container {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      opacity: 0.95;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      background: var(--background);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 5px;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    button {
+      background: var(--primary);
+      border: none;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      margin-top: 1.5rem;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #a24bff;
+    }
+    .error {
+      color: #ff6b6b;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    p {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-
-<h1>S'inscrire</h1>
+  <div class="signup-container">
+    <h1>S'inscrire</h1>
+  
 
 <?php if ($error): ?><p class="error"><?= htmlspecialchars($error) ?></p><?php endif; ?>
 
