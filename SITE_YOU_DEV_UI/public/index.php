@@ -70,8 +70,7 @@ function time_elapsed_string($datetime, $full = false) {
   <meta charset="UTF-8" />
   <title> Accueil - NEXORA </title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
- <!-- Lien vers le fichier CSS -->
-    <link rel="stylesheet" href="../assets/css/index.css">
+  <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 <body>
 <header>

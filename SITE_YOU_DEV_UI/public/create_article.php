@@ -38,71 +38,75 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <title>Créer un article - NEXORA </title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
-  <link rel="stylesheet" href="../assets/css/create_article.css"/>
+  <link rel="stylesheet" href="../assets/css/create_article.css" />
 
   <!-- Intègre l'éditeur TinyMCE -->
-  <script src="https://cdn.tiny.cloud/1/8evtsb6e56jf07xb5lj1pyiqxqm80vhnih1mdlc0op47kiav/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://cdn.tiny.cloud/1/8evtsb6e56jf07xb5lj1pyiqxqm80vhnih1mdlc0op47kiav/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script>
   <script>
-  tinymce.init({
-    selector: '#content', // Cible le textarea avec l'id content
-    menubar: false,
-    plugins: 'lists link image preview',
-    toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | preview',
-    height: 300,
-    Text: 'test'
-  });
+    tinymce.init({
+      selector: '#content', // Cible le textarea avec l'id content
+      menubar: false,
+      plugins: 'lists link image preview',
+      toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | preview',
+      height: 300,
+      Text: 'test'
+    });
   </script>
 </head>
+
 <body>
 
-<header>
-  <h1>NEXORA</h1>
-  <div class="user-links">
-  <a href="index.php">Home</a>
-  <a href="profile.php">Profile</a>
-  <a href="edit_post.php">Edit Post</a>
-  <a href="logout.php">Déconnexion</a>
-  </div>
-</header>
+  <header>
+    <h1>NEXORA</h1>
+    <div class="user-links">
+      <a href="index.php">Home</a>
+      <a href="profile.php">Profile</a>
+      <a href="edit_post.php">Edit Post</a>
+      <a href="logout.php">Déconnexion</a>
+    </div>
+  </header>
 
-<h1>Créer un article</h1>
+  <h1>Créer un article</h1>
 
-<?php if ($error): ?>
-  <!-- Affiche un message d'erreur si besoin -->
-  <p class="error"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
-<?php if ($success): ?>
-  <!-- Affiche un message de succès si besoin -->
-  <p class="success"><?= htmlspecialchars($success) ?></p>
-<?php endif; ?>
+  <?php if ($error): ?>
+    <!-- Affiche un message d'erreur si besoin -->
+    <p class="error"><?= htmlspecialchars($error) ?></p>
+  <?php endif; ?>
+  <?php if ($success): ?>
+    <!-- Affiche un message de succès si besoin -->
+    <p class="success"><?= htmlspecialchars($success) ?></p>
+  <?php endif; ?>
 
-<!-- Formulaire de création d'article -->
-<form method="POST" id="articleForm">
-  <label for="title">Titre</label>
-  <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" />
+  <!-- Formulaire de création d'article -->
+  <form method="POST" id="articleForm">
+    <label for="title">Titre</label>
+    <input type="text" id="title" name="title" value="<?= htmlspecialchars($title) ?>" />
 
-  <label for="content">Contenu</label>
-  <textarea id="content" name="content" rows="8"><?= htmlspecialchars($content) ?></textarea>
+    <label for="content">Contenu</label>
+    <textarea id="content" name="content" rows="8"><?= htmlspecialchars($content) ?></textarea>
 
-  <button type="submit">Publier</button>
-</form>
+    <button type="submit">Publier</button>
+  </form>
 
-<script>
-  // Validation côté client avant soumission du formulaire
-  document.getElementById('articleForm').addEventListener('submit', function(e) {
-  const title = document.getElementById('title').value.trim();
-  const content = tinymce.get('content').getContent({ format: 'text' }).trim();
+  <script>
+    // Validation côté client avant soumission du formulaire
+    document.getElementById('articleForm').addEventListener('submit', function (e) {
+      const title = document.getElementById('title').value.trim();
+      const content = tinymce.get('content').getContent({ format: 'text' }).trim();
 
-  if (!title || !content) {
-    e.preventDefault();
-    alert('Veuillez remplir le titre et le contenu.');
-  }
-  });
-</script>
+      if (!title || !content) {
+        e.preventDefault();
+        alert('Veuillez remplir le titre et le contenu.');
+      }
+    });
+  </script>
 
 </body>
+
 </html>

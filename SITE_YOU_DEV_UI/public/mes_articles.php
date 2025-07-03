@@ -33,25 +33,26 @@ $articles = $stmt->fetchAll();
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <title>Mes Articles - NEXORA </title>
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
-  <style>
-    .article-card {
-      border: 1px solid #444;
-      padding: 10px;
-      margin-bottom: 15px;
-      background-color: #222;
-      color: #eee;
-    }
-    button {
-      margin-right: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/mes_articles.css" />
 </head>
+
 <body>
-  <h1>Mes Articles</h1>
+
+  <header>
+    <h1>NEXORA</h1>
+    <h2>Mes articles</h2>
+    <div class="user-links">
+      <a href="index.php">Home</a>
+      <a href="profile.php">Profile</a>
+      <a href="edit_post.php">Edit Post</a>
+      <a href="logout.php">Déconnexion</a>
+    </div>
+  </header>
 
   <?php foreach ($articles as $article): ?>
     <div class="article-card">
@@ -66,7 +67,8 @@ $articles = $stmt->fetchAll();
       </form>
 
       <!-- Bouton Supprimer -->
-      <form method="POST" action="delete_article.php" onsubmit="return confirm('Supprimer cet article ?');" style="display:inline;">
+      <form method="POST" action="delete_article.php" onsubmit="return confirm('Supprimer cet article ?');"
+        style="display:inline;">
         <input type="hidden" name="delete_id" value="<?= $article['id'] ?>">
         <button type="submit">🗑️ Supprimer</button>
       </form>
@@ -74,4 +76,5 @@ $articles = $stmt->fetchAll();
   <?php endforeach; ?>
 
 </body>
+
 </html>
