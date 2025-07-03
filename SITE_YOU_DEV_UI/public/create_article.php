@@ -59,13 +59,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<nav>
-  <!-- Menu de navigation -->
+<header>
+  <h1>NEXORA</h1>
+  <div class="user-links">
   <a href="index.php">Home</a>
   <a href="profile.php">Profile</a>
   <a href="edit_post.php">Edit Post</a>
   <a href="logout.php">Déconnexion</a>
-</nav>
+  </div>
+</header>
 
 <h1>Créer un article</h1>
 
