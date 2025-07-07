@@ -1,5 +1,6 @@
-/* Police moderne via Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+/* Polices */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu&display=swap');
 
 :root {
   --background: #1e1e2f;
@@ -18,7 +19,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "ubuntu", sans-serif;
   background-color: var(--background);
   color: var(--text);
   line-height: 1.6;
@@ -40,7 +41,7 @@ header {
   border-bottom: 1px solid #2c2c47;
   text-align: center;
   width: 100%;
-  padding: 0;
+  padding: 40px, 0;
   opacity: 0.58;
 }
 
@@ -49,6 +50,7 @@ header h1 {
   color: var(--primary);
   margin-bottom: 10px;
   color: white;
+  font-family: "Bebas neue", sans-serif;
 }
 
 .user-links {
@@ -168,7 +170,7 @@ footer {
   background: #1e1e2f;
   color: var(--text-light);
   text-align: center;
-  padding: 20px 0;
+  padding: 40px 0;
   border-top: 1px solid var(--border);
   margin-top: 40px;
   font-size: 0.9rem;

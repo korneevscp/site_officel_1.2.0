@@ -50,12 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     referrerpolicy="origin"></script>
   <script>
     tinymce.init({
-      selector: '#content', // Cible le textarea avec l'id content
+      selector: '#content',
+      width: '100%',
+      height: 250,           // hauteur totale de l’éditeur (px)
+      skin: 'oxide-dark',
+      content_css: 'dark',
       menubar: false,
       plugins: 'lists link image preview',
       toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | preview',
-      height: 300,
-      Text: 'test'
+      content_style: "body { margin:0; padding:0.5rem; line-height:1.8; }"
     });
   </script>
 </head>
@@ -63,16 +66,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
   <header>
-    <h1>NEXORA</h1>
+    <h1>NEXORA - créer un article</h1>
     <div class="user-links">
-      <a href="index.php">Home</a>
-      <a href="profile.php">Profile</a>
-      <a href="edit_post.php">Edit Post</a>
-      <a href="logout.php">Déconnexion</a>
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <a href="index.php">Home</a>
+        <a href="mes_articles.php">Mes articles</a>
+        <a href="profile.php">Profil</a>
+        <a href="logout.php">Déconnexion</a>
+      <?php endif; ?>
     </div>
   </header>
 
-  <h1>Créer un article</h1>
 
   <?php if ($error): ?>
     <!-- Affiche un message d'erreur si besoin -->
@@ -106,6 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     });
   </script>
+
+  <footer>
+    <p>&copy; <?= date('Y') ?> NEXORA. Tous droits réservés.</p>
+  </footer>
 
 </body>
 

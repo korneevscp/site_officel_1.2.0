@@ -1,3 +1,7 @@
+/* Polices */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu&display=swap');
+
 :root {
   --background: #1e1e2f;
   --card-bg: #2c2c47;
@@ -8,13 +12,17 @@
   --avatar-bg: #3f3f57;
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background: #1e1e2f;
-  color: #eee;
-  font-family: Arial, sans-serif;
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 1rem;
+  font-family: "ubuntu", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
 }
 
 /* Header */
@@ -24,15 +32,14 @@ header {
   border-bottom: 1px solid #2c2c47;
   text-align: center;
   width: 100%;
-  padding: 0;
+  padding: 20px 0;
   opacity: 0.58;
 }
 
 header h1 {
   font-size: 2rem;
-  color: var(--primary);
-  margin-bottom: 10px;
   color: white;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 .user-links {
@@ -61,7 +68,6 @@ header h1 {
   border-color: #fff;
 }
 
-
 h1 {
   text-align: center;
   margin-bottom: 30px;
@@ -69,14 +75,22 @@ h1 {
   color: #ffffff;
 }
 
+/* Conteneur des articles */
+.articles-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
 .article-card {
-  background-color: #2c2c47;
+  background-color: var(--card-bg);
   border: 1px solid #333;
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease;
+  max-width: 100%;
 }
 
 .article-card:hover {
@@ -125,4 +139,38 @@ button:last-child {
 
 button:last-child:hover {
   background-color: black;
+}
+
+/* footer */
+footer {
+  background: #1e1e2f;
+  color: var(--text-light);
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* === AJOUT POUR PUSSHER LE FOOTER EN BAS === */
+
+/* 1. html et body font 100% de la hauteur */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* 2. Body en flex vertical */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. Main (articles-container) occupe tout l’espace restant */
+.articles-container {
+  flex: 1;
 }

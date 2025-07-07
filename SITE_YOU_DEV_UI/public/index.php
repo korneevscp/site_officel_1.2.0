@@ -17,7 +17,8 @@ $stmt = $pdo->query("
 $articles = $stmt->fetchAll();
 
 // Fonction pour générer un extrait du contenu HTML (limité à $max_length caractères)
-function excerpt_html($html, $max_length = 200) {
+function excerpt_html($html, $max_length = 200)
+{
   $text = strip_tags($html);
 
   if (mb_strlen($text) <= $max_length) {
@@ -29,7 +30,8 @@ function excerpt_html($html, $max_length = 200) {
 }
 
 // Fonction pour afficher le temps écoulé depuis une date donnée (ex: "il y a 2 jours")
-function time_elapsed_string($datetime, $full = false) {
+function time_elapsed_string($datetime, $full = false)
+{
   $now = new DateTime;
   $ago = new DateTime($datetime);
   $diff = $now->diff($ago);
@@ -55,7 +57,8 @@ function time_elapsed_string($datetime, $full = false) {
     }
   }
 
-  if (!$full) $string = array_slice($string, 0, 1);
+  if (!$full)
+    $string = array_slice($string, 0, 1);
 
   if ($string) {
     return 'il y a ' . implode(', ', $string);
@@ -66,57 +69,63 @@ function time_elapsed_string($datetime, $full = false) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <title> Accueil - NEXORA </title>
+  <!-- liens pour stylesheet -->
   <link rel="icon" type="image/png" href="../assets/images/logo.png" />
   <link rel="stylesheet" href="../assets/css/index.css">
 </head>
+
 <body>
-<header>
-  <h1>NEXORA - Articles récents</h1>
-<div class="user-links">
-  <?php if (isset($_SESSION['user_id'])): ?>
-    <a href="create_article.php">Créer un article</a>
-    <a href="mes_articles.php">Mes articles</a>
-    <a href="profile.php">Profil</a>
-    <a href="../admin/login.php">Admin</a>
-    <a href="logout.php">Déconnexion</a>
-  <?php else: ?>
-    <a href="login.php">Se connecter</a>
-    <a href="register.php">S'inscrire</a>
-  <?php endif; ?>
-</div>
-</header>
+  <header>
+    <h1>NEXORA - Articles récents</h1>
+    <div class="user-links">
+      <?php if (isset($_SESSION['user_id'])): ?>
+        <a href="create_article.php">Créer un article</a>
+        <a href="mes_articles.php">Mes articles</a>
+        <a href="profile.php">Profil</a>
+        <a href="../admin/login.php">Admin</a>
+        <a href="logout.php">Déconnexion</a>
+      <?php else: ?>
+        <a href="login.php">Se connecter</a>
+        <a href="register.php">S'inscrire</a>
+      <?php endif; ?>
+    </div>
+  </header>
 
-<main class="posts-container">
-  <?php if (count($articles) === 0): ?>
-    <p>Aucun article trouvé.</p>
-  <?php else: ?>
-    <?php foreach ($articles as $article): ?>
-      <article>
-        <h2><a href="article.php?id=<?= $article['id'] ?>"><?= htmlspecialchars($article['title']) ?></a></h2>
-        <p><small>Par <?= htmlspecialchars($article['username']) ?> | <?= time_elapsed_string($article['created_at']) ?></small></p>
-        <p><?= excerpt_html($article['content']) ?></p>
-        <div class="author">
-          <?php if ($article['avatar']): ?>
-            <img src="../uploads/avatars/<?= htmlspecialchars($article['avatar']) ?>" alt="Avatar de <?= htmlspecialchars($article['username']) ?>" />
-          <?php else: ?>
-            <div class="default-avatar">N/A</div>
-          <?php endif; ?>
-          <div class="info">
-            <strong><?= htmlspecialchars($article['username']) ?></strong>
-            <small><?= nl2br(htmlspecialchars($article['description'])) ?></small>
+  <main class="posts-container">
+    <?php if (count($articles) === 0): ?>
+      <p>Aucun article trouvé.</p>
+    <?php else: ?>
+      <?php foreach ($articles as $article): ?>
+        <article>
+          <h2><a href="article.php?id=<?= $article['id'] ?>"><?= htmlspecialchars($article['title']) ?></a></h2>
+          <p><small>Par <?= htmlspecialchars($article['username']) ?> |
+              <?= time_elapsed_string($article['created_at']) ?></small></p>
+          <p><?= excerpt_html($article['content']) ?></p>
+          <div class="author">
+            <?php if ($article['avatar']): ?>
+              <img src="../uploads/avatars/<?= htmlspecialchars($article['avatar']) ?>"
+                alt="Avatar de <?= htmlspecialchars($article['username']) ?>" />
+            <?php else: ?>
+              <div class="default-avatar">N/A</div>
+            <?php endif; ?>
+            <div class="info">
+              <strong><?= htmlspecialchars($article['username']) ?></strong>
+              <small><?= nl2br(htmlspecialchars($article['description'])) ?></small>
+            </div>
           </div>
-        </div>
-      </article>
-    <?php endforeach; ?>
-  <?php endif; ?>
-</main>
+        </article>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </main>
 
-<footer>
-  <p>&copy; <?= date('Y') ?> NEXORA. Tous droits réservés.</p>
-</footer>
+  <footer>
+    <p>&copy; <?= date('Y') ?> NEXORA. Tous droits réservés.</p>
+  </footer>
 
 </body>
+
 </html>

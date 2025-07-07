@@ -44,36 +44,40 @@ $articles = $stmt->fetchAll();
 <body>
 
   <header>
-    <h1>NEXORA</h1>
-    <h2>Mes articles</h2>
+    <h1>NEXORA - Mes Articles</h1>
     <div class="user-links">
       <a href="index.php">Home</a>
-      <a href="profile.php">Profile</a>
-      <a href="edit_post.php">Edit Post</a>
+      <a href="profile.php">Profil</a>
       <a href="logout.php">Déconnexion</a>
     </div>
   </header>
 
-  <?php foreach ($articles as $article): ?>
-    <div class="article-card">
-      <h2><?= htmlspecialchars($article['title']) ?></h2>
-      <p>Publié le <?= date('d/m/Y H:i', strtotime($article['created_at'])) ?></p>
-      <div><?= $article['content'] ?></div>
+  <main class="articles-container">
+    <?php foreach ($articles as $article): ?>
+      <div class="article-card">
+        <h2><?= htmlspecialchars($article['title']) ?></h2>
+        <p>Publié le <?= date('d/m/Y H:i', strtotime($article['created_at'])) ?></p>
+        <div><?= $article['content'] ?></div>
 
-      <!-- Bouton Modifier -->
-      <form method="POST" action="edit_article.php" style="display:inline;">
-        <input type="hidden" name="edit_id" value="<?= $article['id'] ?>">
-        <button type="submit">✏️ Modifier</button>
-      </form>
+        <!-- Bouton Modifier -->
+        <form method="POST" action="edit_article.php" style="display:inline;">
+          <input type="hidden" name="edit_id" value="<?= $article['id'] ?>">
+          <button type="submit">✏️ Modifier</button>
+        </form>
 
-      <!-- Bouton Supprimer -->
-      <form method="POST" action="delete_article.php" onsubmit="return confirm('Supprimer cet article ?');"
-        style="display:inline;">
-        <input type="hidden" name="delete_id" value="<?= $article['id'] ?>">
-        <button type="submit">🗑️ Supprimer</button>
-      </form>
-    </div>
-  <?php endforeach; ?>
+        <!-- Bouton Supprimer -->
+        <form method="POST" action="delete_article.php" onsubmit="return confirm('Supprimer cet article ?');"
+          style="display:inline;">
+          <input type="hidden" name="delete_id" value="<?= $article['id'] ?>">
+          <button type="submit">🗑️ Supprimer</button>
+        </form>
+      </div>
+    <?php endforeach; ?>
+  </main>
+
+  <footer>
+    <p>&copy; <?= date('Y') ?> NEXORA. Tous droits réservés.</p>
+  </footer>
 
 </body>
 
