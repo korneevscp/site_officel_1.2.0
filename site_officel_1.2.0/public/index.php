@@ -163,5 +163,6 @@ if (!$articles) $articles = [];
 <hr>
 <?php endforeach; ?>
 </main>
+<script src="../assets/js/actu.js"></script>
 </body>
 </html>

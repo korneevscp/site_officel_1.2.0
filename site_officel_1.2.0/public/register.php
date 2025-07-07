@@ -35,40 +35,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<title> S'inscrire - NEXORA </title>
- <link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
-<style>
-  body { background:#111; color:#eee; font-family: Arial, sans-serif; max-width: 400px; margin:auto; padding: 2rem; }
-  input { width: 100%; padding: 0.5rem; margin: 0.3rem 0; background:#222; border:none; color:#eee; border-radius:3px;}
-  button { background:#66aaff; border:none; color:#111; padding: 0.5rem 1rem; cursor:pointer; border-radius:3px;}
-  .error { color: #f55; }
-  a { color:#66aaff; }
-</style>
+    <meta charset="UTF-8" />
+    <title>S'inscrire - NEXORA</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
+    <link rel="stylesheet" href="../assets/css/register.css" />
 </head>
 <body>
 
-<h1>S'inscrire</h1>
+<div class="container">
+    <h1>S'inscrire</h1>
 
-<?php if ($error): ?><p class="error"><?= htmlspecialchars($error) ?></p><?php endif; ?>
+    <?php if ($error): ?>
+        <p class="error"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
 
-<form method="POST">
-  <label>Nom d'utilisateur</label>
-  <input type="text" name="username" required value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" />
+    <form method="POST">
+        <label>Nom d'utilisateur</label>
+        <input type="text" name="username" required value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" />
 
-  <label>Email</label>
-  <input type="email" name="email" required value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" />
+        <label>Email</label>
+        <input type="email" name="email" required value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" />
 
-  <label>Mot de passe</label>
-  <input type="password" name="password" required />
+        <label>Mot de passe</label>
+        <input type="password" name="password" required />
 
-  <label>Confirmer mot de passe</label>
-  <input type="password" name="password_confirm" required />
+        <label>Confirmer mot de passe</label>
+        <input type="password" name="password_confirm" required />
 
-  <button type="submit">S'inscrire</button>
-</form>
+        <button type="submit">S'inscrire</button>
+    </form>
 
-<p>Déjà un compte ? <a href="login.php">Se connecter</a></p>
+    <p class="login-link">Déjà un compte ? <a href="login.php">Se connecter</a></p>
+</div>
 
 </body>
 </html>

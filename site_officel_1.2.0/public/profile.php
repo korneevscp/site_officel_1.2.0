@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $uploadPath)) {
                 $error = "Impossible de sauvegarder l'avatar.";
             } else {
-                // Supprimer ancien avatar si existant (optionnel)
                 if ($user['avatar'] && file_exists($uploadDir . $user['avatar'])) {
                     @unlink($uploadDir . $user['avatar']);
                 }
@@ -59,13 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$newUsername || !$newEmail) {
         $error = "Pseudo et email obligatoires.";
     } else {
-        // Vérifier si email/pseudo changé et déjà utilisé ?
         $stmt = $pdo->prepare("SELECT id FROM users WHERE (email = ? OR username = ?) AND id != ?");
         $stmt->execute([$newEmail, $newUsername, $user_id]);
         if ($stmt->fetch()) {
             $error = "Pseudo ou email déjà utilisé par un autre utilisateur.";
         } else {
-            // Changer mot de passe si demandé (uniquement si nouveau mdp est renseigné)
             if ($newPassword || $confirmPassword) {
                 if (!$currentPassword) {
                     $error = "Veuillez saisir votre mot de passe actuel pour le changer.";
@@ -74,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } elseif ($newPassword !== $confirmPassword) {
                     $error = "Le nouveau mot de passe et sa confirmation ne correspondent pas.";
                 } else {
-                    // Mettre à jour mot de passe
                     $newHash = password_hash($newPassword, PASSWORD_BCRYPT);
                     $stmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id = ?");
                     $stmt->execute([$newHash, $user_id]);
@@ -82,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             if (!$error) {
-                // Mettre à jour pseudo + email + description + avatar si uploadé
                 if (isset($avatarFilename)) {
                     $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, description = ?, avatar = ? WHERE id = ?");
                     $stmt->execute([$newUsername, $newEmail, $newDescription, $avatarFilename, $user_id]);
@@ -109,10 +104,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 <meta charset="UTF-8" />
 <title>Mon profil</title>
- <link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
- <link rel="stylesheet" href="../assets/css/profil.css">
+<link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
+<link rel="stylesheet" href="../assets/css/profil.css" />
 </head>
 <body>
+
+<nav>
+  <a href="index.php" class="logo">NEXORA</a>
+  <div class="user-links">
+  <?php if (isset($_SESSION['user_id'])): ?>
+    <a href="create_article.php">je post</a> |
+    <a href="mes_articles.php">mes post</a> |
+    <a href="profile.php">profil</a> |
+    <a href="../admin_system_files/auth/login.php">admin login</a> |
+    <a href="logout.php">Déconnexion</a>
+  <?php else: ?>
+    <a href="login.php">Se connecter</a> |
+    <a href="register.php">S'inscrire</a>
+  <?php endif; ?>
+  </div>
+</nav>
+
 <h1>Mon profil</h1>
 
 <?php if ($error): ?><p class="error"><?= htmlspecialchars($error) ?></p><?php endif; ?>
