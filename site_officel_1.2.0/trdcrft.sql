@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 23 Juin 2025 à 11:03
+-- Généré le :  Lun 07 Juillet 2025 à 11:29
 -- Version du serveur :  5.6.17
 -- Version de PHP :  5.5.12
 
@@ -57,15 +57,14 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `author_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_articles_author` (`author_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=36 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=46 ;
 
 --
 -- Contenu de la table `articles`
 --
 
 INSERT INTO `articles` (`id`, `title`, `content`, `created_at`, `updated_at`, `author_id`) VALUES
-(34, '2', '<p>2</p>', '2025-06-20 11:32:07', '2025-06-20 11:32:07', 18),
-(35, 'dsf', '<p>ffrefr<br><br><img src="https://i.pinimg.com/736x/39/f6/6e/39f66ef045f284f8de51ccec74711f89.jpg" alt="" width="700" height="881"></p>', '2025-06-23 10:55:58', '2025-06-23 10:55:58', 18);
+(40, 'HEKK', '<p>EFEAF</p>', '2025-07-03 12:18:15', '2025-07-03 12:18:15', 21);
 
 -- --------------------------------------------------------
 
@@ -78,11 +77,11 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `comment` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `post_id` (`post_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -108,14 +107,19 @@ CREATE TABLE IF NOT EXISTS `friend_requests` (
 --
 
 CREATE TABLE IF NOT EXISTS `likes` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `post_id` (`post_id`,`user_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  UNIQUE KEY `unique_like` (`post_id`,`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=5 ;
+
+--
+-- Contenu de la table `likes`
+--
+
+INSERT INTO `likes` (`id`, `post_id`, `user_id`) VALUES
+(4, 42, 22);
 
 -- --------------------------------------------------------
 
@@ -238,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=23 ;
 
 --
 -- Contenu de la table `users`
@@ -246,8 +250,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `created_at`, `password`, `avatar`, `description`, `status`, `warned`) VALUES
 (16, 'XBT', '1@1.fr', '$2y$10$aOhL6INI2UgHCtnx29rdnOUSTNEyaguNv9O6ig7Oh6O5Xs4geaZGC', 'user', '2025-06-20 08:58:09', '', NULL, NULL, 'active', 0),
-(17, 'M', 'M@M.M', '$2y$10$331S.FrgzSjU9gUd.OXohe9/hrMW7h9ktmSeHaWKmmSZE8DlTiTFG', 'user', '2025-06-20 09:16:43', '', NULL, NULL, 'active', 0),
-(18, '2', '2@2.FR', '$2y$10$JZ4GqfhgcWiVOlDnkvg0CemzwR95sCPMlhkx0kstU3kvupfs/RbZG', 'user', '2025-06-20 09:31:42', '', 'avatar_18_1750411920.png', '2', 'active', 0);
+(20, 'L', 'L@L.L', '$2y$10$I3h.FbTUVkWfUiZcn1yAnOCc2SZNguCp1f3ipk12nadlW.Qb.eJ3a', 'user', '2025-07-03 10:10:14', '', 'avatar_20_1751537743.jpg', 'TEST HACK', 'active', 0),
+(21, 'M', 'M@M.M', '$2y$10$PhZBhSNOBHvedRt9I41fHupquqJRe8Z5MfUx6O9ETcHmU.PuhcE4m', 'user', '2025-07-03 10:16:42', '', 'avatar_21_1751537851.jpg', '2 THE BLACK HAT', 'active', 0),
+(22, 'admin', 'admin@admin.fr', '$2y$10$LGYWx5otkc4BqyU4a7OBrOo7sXTmE4CVSFGoxul.5orPIHgN5gx62', 'user', '2025-07-07 07:55:56', '', 'avatar_22_1751875654.jpg', 'moi', 'active', 0);
 
 --
 -- Contraintes pour les tables exportées
@@ -263,7 +268,8 @@ ALTER TABLE `articles`
 -- Contraintes pour la table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `fk_comments_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `articles` (`id`),
+  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `friend_requests`
@@ -271,12 +277,6 @@ ALTER TABLE `comments`
 ALTER TABLE `friend_requests`
   ADD CONSTRAINT `friend_requests_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `friend_requests_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `likes`
---
-ALTER TABLE `likes`
-  ADD CONSTRAINT `fk_likes_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `loadouts`

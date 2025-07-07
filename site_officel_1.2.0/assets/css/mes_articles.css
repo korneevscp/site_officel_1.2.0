@@ -1,0 +1,172 @@
+:root {
+  --background: #1e1e2f;
+  --card-bg: #2c2c47;
+  --text: #f0f0f0;
+  --text-light: #9ca3af;
+  --primary: #8a2be2;
+  --border: #3a3a4a;
+  --avatar-bg: #3f3f57;
+}
+
+body {
+  background: #1e1e2f;
+  color: #eee;
+  font-family: Arial, sans-serif;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+/* Header */
+header {
+  background: #1e1e2f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #2c2c47;
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  opacity: 0.58;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  color: white;
+}
+
+.user-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.user-links a {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.user-links a:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: #fff;
+}
+
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.article-card {
+  background-color: #2c2c47;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+}
+
+.article-card h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.article-card p {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  margin-bottom: 10px;
+}
+
+.article-card div {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+form {
+  display: inline-block;
+}
+
+button {
+  background-color: #2d88ff;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #6969aa;
+}
+
+button:last-child {
+  background-color: #6666a1;
+}
+
+button:last-child:hover {
+  background-color: black;
+}
+/* Affichage correct du HTML TinyMCE dans les aperçus */
+.post-preview {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.post-preview h1,
+.post-preview h2,
+.post-preview h3,
+.post-preview strong,
+.post-preview em,
+.post-preview p {
+  margin-bottom: 10px;
+}
+
+.post-preview ul,
+.post-preview ol {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+/* Avatars ronds avec bordure violette */
+.avatar-img, .comment-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+  margin-right: 0.5rem;
+}
+
+/* Fallback pour les commentaires */
+.comment-avatar {
+  background: #555;
+  color: #999;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 0.75rem;
+}

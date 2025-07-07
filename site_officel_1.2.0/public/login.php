@@ -26,15 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
 <meta charset="UTF-8" />
-<title>Se connecter - TRDCRFT</title>
+<title>Se connecter - </title>
 <link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
-<style>
-  body { background:#111; color:#eee; font-family: Arial, sans-serif; max-width: 400px; margin:auto; padding: 2rem; }
-  input { width: 100%; padding: 0.5rem; margin: 0.3rem 0; background:#222; border:none; color:#eee; border-radius:3px;}
-  button { background:#66aaff; border:none; color:#111; padding: 0.5rem 1rem; cursor:pointer; border-radius:3px;}
-  .error { color: #f55; }
-  a { color:#66aaff; }
-</style>
+<link rel="stylesheet" href="../assets/css/login.css">
 </head>
 <body>
 

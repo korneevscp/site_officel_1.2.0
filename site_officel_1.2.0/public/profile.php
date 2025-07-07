@@ -110,16 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="UTF-8" />
 <title>Mon profil</title>
  <link rel="icon" type="image/png" href="../assets/images/logo.jpg" />
-<style>
-  body { font-family: Arial; background: #111; color: #eee; padding: 2rem; max-width: 600px; margin: auto; }
-  input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; background: #222; border: none; color: #eee; }
-  button { padding: 0.5rem 1rem; background: #444; border: none; color: #eee; cursor: pointer; }
-  .error { color: #f55; }
-  .success { color: #5f5; }
-  label { font-weight: bold; display: block; margin-top: 1rem; }
-  a { color: #66f; }
-  img.avatar-preview { max-width: 150px; max-height: 150px; border-radius: 50%; display: block; margin-top: 1rem; }
-</style>
+ <link rel="stylesheet" href="../assets/css/profil.css">
 </head>
 <body>
 <h1>Mon profil</h1>

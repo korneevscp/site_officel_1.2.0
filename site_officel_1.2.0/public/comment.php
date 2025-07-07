@@ -2,23 +2,24 @@
 session_start();
 require_once '../includes/db.php';
 
-// Vérifier que l'utilisateur est connecté et que les données POST sont présentes
-if (!isset($_SESSION['user_id']) || !isset($_POST['post_id'], $_POST['comment'])) {
-  header('Location: index.php');
-  exit;
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
 }
 
-$userId = $_SESSION['user_id'];
-$postId = (int)$_POST['post_id'];
-$comment = trim($_POST['comment']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $postId = isset($_POST['post_id']) ? $_POST['post_id'] : null;
+    $userId = $_SESSION['user_id'];
+    $comment = isset($_POST['content']) ? trim($_POST['content']) : '';
 
-// Insérer le commentaire uniquement s'il n'est pas vide
-if ($comment !== '') {
-  // Préparation de la requête d'insertion (attention à la table comments : id doit être AUTO_INCREMENT)
-  $stmt = $pdo->prepare("INSERT INTO comments (post_id, user_id, comment) VALUES (?, ?, ?)");
-  $stmt->execute([$postId, $userId, $comment]);
+    if (!$postId || empty($comment)) {
+        header('Location: index.php');
+        exit;
+    }
+
+    $stmt = $pdo->prepare("INSERT INTO comments (post_id, user_id, comment) VALUES (?, ?, ?)");
+    $stmt->execute([$postId, $userId, $comment]);
+
+    header("Location: article.php?id=" . (int)$postId);
+    exit;
 }
-
-// Redirection vers la page d'accueil (ou la page souhaitée)
-header('Location: index.php');
-exit;

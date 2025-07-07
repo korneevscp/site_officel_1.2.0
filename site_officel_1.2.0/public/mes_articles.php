@@ -19,20 +19,24 @@ $articles = $stmt->fetchAll();
 <head>
   <meta charset="UTF-8">
   <title>Mes Articles</title>
-  <style>
-    .article-card {
-      border: 1px solid #444;
-      padding: 10px;
-      margin-bottom: 15px;
-      background-color: #222;
-      color: #eee;
-    }
-    button {
-      margin-right: 10px;
-    }
-  </style>
+   <link rel="stylesheet" href="../assets/css/mes_articles.css">
 </head>
 <body>
+  <nav>
+  <a href="index.php" class="logo">NEXORA</a>
+  <div class="user-links">
+  <?php if (isset($_SESSION['user_id'])): ?>
+    <a href="create_article.php">je post</a> |
+    <a href="mes_articles.php">mes post</a> |
+    <a href="profile.php">profil</a> |
+    <a href="../admin_system_files/auth/login.php">admin login</a> |
+    <a href="logout.php">Déconnexion</a>
+  <?php else: ?>
+    <a href="login.php">Se connecter</a> |
+    <a href="register.php">S'inscrire</a>
+  <?php endif; ?>
+  </div>
+</nav>
   <h1>Mes Articles</h1>
 
   <?php foreach ($articles as $article): ?>

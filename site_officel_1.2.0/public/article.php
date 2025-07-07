@@ -1,7 +1,7 @@
 <?php
 require_once '../includes/db.php';
 
-$id = $_GET['id'] ?? null;
+$id = isset($_GET['id']) ? $_GET['id'] : null;
 if (!$id) die("Article non trouvé");
 
 $stmt = $pdo->prepare("
@@ -18,17 +18,28 @@ if (!$article) die("Article introuvable");
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title><?= htmlspecialchars($article['title']) ?> - TRDCRFT</title>
+  <link rel="stylesheet" href="../assets/css/article.css" />
+  
   <style>
-    body { font-family: Arial; background: #111; color: #eee; padding: 2rem; }
-    a { color: #66f; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      padding: 2rem;
+    }
+    a {
+      color: #66f;
+    }
   </style>
 </head>
 <body>
   <h1><?= htmlspecialchars($article['title']) ?></h1>
   <p><small>Par <?= htmlspecialchars($article['username']) ?> | <?= htmlspecialchars($article['created_at']) ?></small></p>
-  <div><?= nl2br(htmlspecialchars($article['content'])) ?></div>
+
+  <div class="article-content"><?= $article['content'] ?></div>
+
   <p><a href="index.php">← Retour</a></p>
 </body>
 </html>
