@@ -23,24 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Les mots de passe ne correspondent pas.";
     } else {
         // Vérifie si le nom d'utilisateur ou l'email existe déjà
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
-        $stmt->execute([$username, $email]);
-        if ($stmt->fetch()) {
-            $error = "Nom d'utilisateur ou email déjà utilisé.";
-        } else {
-            // Hash le mot de passe
-            $hash = password_hash($password, PASSWORD_DEFAULT);
-            // Insère le nouvel utilisateur dans la base de données
-            $stmt = $pdo->prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, 'user')");
-            $stmt->execute([$username, $email, $hash]);
-            // Redirige vers la page de connexion
-            header('Location: login.php');
-            exit;
-        }
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -151,11 +133,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="POST">
   <label>Nom d'utilisateur</label>
   <!-- Champ pour le nom d'utilisateur -->
-  <input type="text" name="username" required value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" />
+  <input type="text" name="username" required value/>
 
   <label>Email</label>
   <!-- Champ pour l'email -->
-  <input type="email" name="email" required value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" />
+  <input type="email" name="email" required value/>
 
   <label>Mot de passe</label>
   <!-- Champ pour le mot de passe -->
