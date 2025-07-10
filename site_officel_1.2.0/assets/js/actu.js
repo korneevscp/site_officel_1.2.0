@@ -1,5 +1,5 @@
 // Temps entre chaque rafraîchissement en millisecondes (exemple : 10 secondes)
-const refreshInterval = 2000;
+const refreshInterval = 6000;
 
 function shouldRefresh() {
   const active = document.activeElement;
