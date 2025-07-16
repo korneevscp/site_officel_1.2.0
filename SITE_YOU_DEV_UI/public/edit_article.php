@@ -290,7 +290,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['edit_id'])) {
 
     <!-- Affichage des messages d'erreur ou de succès -->
     <?php if (!empty($error)): ?>
-        <p class="error"><</p>
+        <p class="error"></p>
     <?php endif; ?>
     <?php if (!empty($success)): ?>
         <p class="success"><?php echo htmlspecialchars($success); ?></p>
