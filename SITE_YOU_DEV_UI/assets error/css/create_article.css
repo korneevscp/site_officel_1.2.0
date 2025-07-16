@@ -1,0 +1,178 @@
+/* Polices */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu&display=swap');
+
+:root {
+  --background: #1e1e2f;
+  --card-bg: #2c2c47;
+  --text: #f0f0f0;
+  --text-light: #9ca3af;
+  --primary: #8a2be2;
+  --border: #3a3a4a;
+  --avatar-bg: #3f3f57;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "ubuntu", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background: #1e1e2f;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #2c2c47;
+  text-align: center;
+  width: 100%;
+  padding: 40px, 0;
+  opacity: 0.58;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  color: white;
+  font-family: "Bebas neue", sans-serif;
+}
+
+.user-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.user-links a {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.user-links a:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: #fff;
+}
+
+/* éditeur de texte */
+/* 1) Centre le formulaire global */
+form#articleForm {
+  max-width: 700px;        /* largeur déjà fixée */
+  margin: 2rem auto;       /* 2rem haut/bas, auto gauche/droite → centré */
+  /* ... tes autres règles ... */
+}
+
+/* 2) Centre l’éditeur TinyMCE lui-même */
+.tox.tox-tinymce {
+  width: 600px !important;   /* largeur fixe (ou % si tu préfères) */
+  margin: 1rem auto !important; /* centré horizontalement */
+  display: block !important; /* pour forcer le comportement de bloc */
+}
+/* 3) Retirer toute limite de max-height sur le container TinyMCE */
+.tox.tox-tinymce {
+  max-height: none !important;
+}
+
+/* 4) Fixer la hauteur de la zone éditable et activer le scroll */
+.tox .tox-edit-area,
+.tox .tox-edit-area iframe {
+  height: 200px !important;    /* ← choisis la hauteur que tu veux */
+  overflow-y: auto !important; /* scroll vertical si nécessaire */
+}
+
+/* 5) Cache la poignée de redimension */
+.tox .tox-statusbar__resize {
+  display: none !important;
+}
+
+input,
+textarea {
+  width: 100%;
+  background-color: #222f3e;
+  color: #000000;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  background: #000000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background: #2c2c47;
+}
+
+.error {
+  color: #f55;
+  margin-bottom: 1rem;
+}
+
+.success {
+  color: #5f5;
+  margin-bottom: 1rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* footer */
+footer {
+  background: #1e1e2f;
+  color: var(--text-light);
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+footer p{
+  margin: 0;
+}
+
+/* === AJOUT POUR PUSSHER LE FOOTER EN BAS === */
+
+/* 1. html et body font 100% de la hauteur */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* 2. Body en flex vertical */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 3. Main (articles-container) occupe tout l’espace restant */
+.articles-container {
+  flex: 1;
+}
